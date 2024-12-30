@@ -4,6 +4,7 @@ pipeline {
     nodejs 'sonarnode'
   }
   environment {
+    PATH = 'C:\\Windows\\System32'
     NODEJS_HOME = 'C:\\Program Files\\nodejs'
     SONAR_SCANNER_PATH = 'C:\\Program Files\\sonarqube-10.7.0.96327\\bin\\windows-x86-64'
   }
