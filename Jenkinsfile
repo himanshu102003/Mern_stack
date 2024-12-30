@@ -14,42 +14,46 @@ pipeline {
         checkout scm
       }
     }
+
     stage('Install Dependencies') {
       steps {
         bat '''
-        set PATH = %NODEJS_HOME%;%PATH%
+        set PATH=%NODEJS_HOME%;%PATH%
         npm install
         '''
       }
     }
+
     stage('Lint') {
       steps {
         bat '''
-        set PATH = %NODEJS_HOME%;%PATH%
+        set PATH=%NODEJS_HOME%;%PATH%
         npm run lint
         '''
       }
     }
+
     stage('Build') {
-      steps {  // Fix: change 'setps' to 'steps'
+      steps {
         bat '''
-        set PATH = %NODEJS_HOME%;%PATH%
+        set PATH=%NODEJS_HOME%;%PATH%
         npm run build
         '''
       }
     }
+
     stage('SonarQube Analysis') {
       environment {
-        SONAR_TOKEN = credentials('sonarqube-token')
+        SONAR_TOKEN = credentials('sonarqube-token')  // Use Jenkins credentials for the token
       }
       steps {
         bat '''
-        set PATH = %SONAR_SCANNER_PATH%;%PATH%
+        set PATH=%SONAR_SCANNER_PATH%;%PATH%
         where sonar-scanner || echo "SonarQube scanner not found. Please install it."
         sonar-scanner -Dsonar.projectKey=mernstack ^
         -Dsonar.sources=. ^
         -Dsonar.host.url=http://localhost:9000 ^
-        -Dsonar.token=sqp_e1933c52ed8cf7402b7401d24a33171a0481d284
+        -Dsonar.token=%SONAR_TOKEN%
         '''
       }
     }
