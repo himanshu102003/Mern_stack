@@ -4,9 +4,9 @@ pipeline {
     nodejs 'sonarnode'
   }
   environment {
-    PATH = 'C:\\Users\\himan\\Downloads\\sonar-scanner-cli-6.2.1.4610-windows-x64\\sonar-scanner-6.2.1.4610-windows-x64\\bin;C:\\Windows\\System32'
+    PATH = ';C:\\Windows\\System32'
     NODEJS_HOME = 'C:\\Program Files\\nodejs'
-    SONAR_SCANNER_PATH = 'C:\\Program Files\\sonarqube-10.7.0.96327\\bin\\windows-x86-64\\bin'
+    SONAR_SCANNER_PATH = 'C:\\Program Files\\sonarqube-10.7.0.96327\\bin\\windows-x86-64'
   }
   stages {
     stage('Checkout') {
